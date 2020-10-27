@@ -1,18 +1,14 @@
-import * as discord from "discord.js";
+import { DangerBot } from "./DangerBot";
 
-async function main() {
-    const client = new discord.Client();
-    client.on("ready", () => {
-        console.log(`Logged in as ${client?.user?.tag}!`);
-    });
-    client.on('message', msg => {
-        if (msg.content.indexOf("ping") !== -1) {
-          msg.reply("pong!");
-        }
-    });
-    await client.login(process.env["DANGERBOT_DISCORD_TOKEN"]);
-}
+// cspell:disable-next-line
+const discordTokenEnvName: string = "DANGERBOT_DISCORD_TOKEN";
 
 (async () => {
-    await main();
+    const discordToken = process.env[discordTokenEnvName];
+    if (discordToken == null || discordToken.length === 0) {
+        throw new Error(`Environment variable ${discordTokenEnvName} has not been set.`);
+    }
+    const bot = new DangerBot(discordToken);
+    bot.onMessage.connect(msg => console.log(msg));
+    bot.login();
 })();
