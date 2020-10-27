@@ -2,7 +2,7 @@ import { Client as DiscordClient } from "discord.js";
 import { Message as DiscordMessage } from "discord.js";
 import { Signal } from "./Signal";
 
-export class DangerBot extends Object {
+export class DangerBot {
 
     /** Underlying Discord client to receive/send chat messages. */
     private readonly discordClient: DiscordClient;
@@ -17,9 +17,6 @@ export class DangerBot extends Object {
      *   Secret token to use for authentication.
      */
     constructor(private readonly discordToken: string) {
-
-        super();
-
         this.discordClient = new DiscordClient();
         this.initialize();
     }
