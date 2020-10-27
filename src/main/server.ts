@@ -7,7 +7,7 @@ async function main() {
     });
     client.on('message', msg => {
         if (msg.content.indexOf("ping") !== -1) {
-          msg.reply("pong");
+          msg.reply("pong!");
         }
     });
     await client.login(process.env["DANGERBOT_DISCORD_TOKEN"]);

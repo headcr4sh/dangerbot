@@ -1,0 +1,25 @@
+{
+    "version": "0.1",
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
+    "enabledLanguageIds": [
+        "markdown",
+        "typescript"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "package-lock.json",
+        "coverage",
+        ".git",
+        "lib",
+        "*.log",
+        "*.tgz"
+    ],
+    "words": [
+        "dangerbot",
+        "downlevel",
+        "headcr",
+        "kayahr",
+        "tslib"
+    ],
+    "language": "en"
+}
