@@ -2,7 +2,6 @@
 
 import { DangerBot } from "./DangerBot";
 
-// cspell:disable-next-line
 const discordTokenEnvName: string = "DANGERBOT_DISCORD_TOKEN";
 
 (async () => {

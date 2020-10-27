@@ -3,7 +3,10 @@
     "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
     "enabledLanguageIds": [
         "markdown",
-        "typescript"
+        "typescript",
+        "dockerfile",
+        "json",
+        "plaintext"
     ],
     "ignorePaths": [
         "node_modules",
@@ -15,11 +18,15 @@
         "*.tgz"
     ],
     "words": [
+        "chmod",
         "dangerbot",
+        "deinitialization",
         "downlevel",
+        "ENTRYPOINT",
         "headcr",
         "kayahr",
-        "tslib"
+        "tslib",
+        "WORKDIR"
     ],
     "language": "en"
 }
