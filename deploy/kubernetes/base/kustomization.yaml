@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+- dangerbot.serviceaccount.yaml
+- dangerbot.service.yaml
+- dangerbot.statefulset.yaml
+
+commonLabels:
+  app.kubernetes.io/name: dangerbot
+  app.kubernetes.io/instance: default
+...

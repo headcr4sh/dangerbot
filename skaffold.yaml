@@ -1,0 +1,20 @@
+---
+apiVersion: skaffold/v2beta8
+kind: Config
+metadata:
+  name: dangerbot
+build:
+  artifacts:
+  - image: docker.io/headcr4sh/dangerbot
+    context: .
+    docker:
+      dockerfile: Dockerfile
+      cacheFrom:
+      - docker.io/library/node:15.0.1
+  local:
+    useDockerCLI: true
+deploy:
+  kustomize:
+    paths:
+    - deploy/kubernetes/base
+...

@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dangerbot
+spec:
+  replicas: 1
+  serviceName: dangerbot
+  template:
+    spec:
+      containers:
+      - command:
+        - /usr/local/bin/dangerbot
+        image: docker.io/headcr4sh/dangerbot
+        imagePullPolicy: Always
+        name: dangerbot
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          capabilities:
+            drop:
+            - ALL
+      serviceAccountName: dangerbot
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+...
