@@ -1,11 +1,19 @@
+import * as path from "path";
+
 import { Client as DiscordClient } from "discord.js";
 import { Message as DiscordMessage } from "discord.js";
+
+import { DangerBotSettings } from "./DangerBotSettings";
 import { Signal } from "./Signal";
+import { Database } from "./Database";
 
 export class DangerBot {
 
     /** Underlying Discord client to receive/send chat messages. */
     private readonly discordClient: DiscordClient;
+
+    /** Database to operate upon. */
+    private database = new Database(path.resolve(this.settings.storage.path, "db.sqlite"));
 
     public readonly onConnect = new Signal<void>();
     public readonly onDisconnect = new Signal<void>();
@@ -13,10 +21,13 @@ export class DangerBot {
 
     /**
      * Creates a new DangerBot(tm) instance.
-     * @param discordToken
-     *   Secret token to use for authentication.
+     * @param settings
+     *   Bot settings and preferences.
      */
-    constructor(private readonly discordToken: string) {
+    constructor(private readonly settings: DangerBotSettings) {
+
+        super();
+
         this.discordClient = new DiscordClient();
         this.initialize();
     }
@@ -42,9 +53,14 @@ export class DangerBot {
 
     }
 
+    public async start(): Promise<void> {
+        await this.database.open();
+        await this.login();
+    }
+
     public async login(): Promise<void> {
 
-        await this.discordClient.login(this.discordToken);
+        await this.discordClient.login(this.settings.discord.token);
 
         // Just discard the returned token. It is not (yet?) useful for us and should
         // equal the one that we have passed to the login request anyhow.
