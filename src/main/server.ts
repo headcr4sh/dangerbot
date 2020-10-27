@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { DangerBot } from "./DangerBot";
 
 // cspell:disable-next-line
