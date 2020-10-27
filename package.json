@@ -49,5 +49,8 @@
     "dependencies": {
         "discord.js": "^12.4.1",
         "tslib": "^2.0.3"
+    },
+    "bin": {
+        "dangerbot": "./lib/main/server.js"
     }
 }
