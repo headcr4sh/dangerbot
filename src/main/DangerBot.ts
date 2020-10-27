@@ -1,69 +1,36 @@
-import * as path from "path";
+import { Client as DiscordClient, Message as DiscordMessage } from "discord.js";
+import { injectable } from "./di/Injectable";
+import { DangerBotConfig } from "./DangerBotConfig";
 
-import { Client as DiscordClient } from "discord.js";
-import { Message as DiscordMessage } from "discord.js";
+import "./modules/GameModule";
+import { execCommand } from "./Command";
 
-import { DangerBotSettings } from "./DangerBotSettings";
-import { Signal } from "./Signal";
-import { Database } from "./Database";
-
+@injectable()
 export class DangerBot {
-
     /** Underlying Discord client to receive/send chat messages. */
     private readonly discordClient: DiscordClient;
 
-    /** Database to operate upon. */
-    private database = new Database(path.resolve(this.settings.storage.path, "db.sqlite"));
-
-    public readonly onConnect = new Signal<void>();
-    public readonly onDisconnect = new Signal<void>();
-    public readonly onMessage = new Signal<DiscordMessage>();
-
     /**
      * Creates a new DangerBot(tm) instance.
-     * @param settings
-     *   Bot settings and preferences.
      */
-    constructor(private readonly settings: DangerBotSettings) {
-
-        this.discordClient = new DiscordClient();
-        this.initialize();
+    constructor(
+        private readonly config: DangerBotConfig
+    ) {
+        const client = this.discordClient = new DiscordClient();
+        client.on("ready", () => this.processReady());
+        client.on("message", message => this.processMessage(message));
     }
 
-    /**
-     * Performs basic initialization.
-     * Stuff that must be done, before the bot can start it's attempt to log in,
-     * such as preparing all the signals.
-     */
-    protected initialize(): void {
-
-        this.discordClient.on("connect", () => {
-            this.onConnect.emit();
-        });
-
-        this.discordClient.on("disconnect", () => {
-            this.onDisconnect.emit();
-        });
-
-        this.discordClient.on("message", (message) => {
-            this.onMessage.emit(message);
-        });
-
+    private processReady(): void {
+        console.log("Logged in as " + this.discordClient.user?.tag);
     }
 
-    public async start(): Promise<void> {
-        await this.database.open();
-        await this.login();
+    private processMessage(message: DiscordMessage): void {
+        execCommand(message.content, message);
     }
 
-    public async login(): Promise<void> {
-
-        await this.discordClient.login(this.settings.discord.token);
-
-        // Just discard the returned token. It is not (yet?) useful for us and should
-        // equal the one that we have passed to the login request anyhow.
-        return;
-
+    public async run(): Promise<void> {
+        console.log("Starting bot");
+        await this.discordClient.login(this.config.getDiscordToken());
     }
-
 }
