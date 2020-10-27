@@ -26,8 +26,6 @@ export class DangerBot {
      */
     constructor(private readonly settings: DangerBotSettings) {
 
-        super();
-
         this.discordClient = new DiscordClient();
         this.initialize();
     }

@@ -1,13 +1,12 @@
 import * as path from "path";
 import { Database as SQLiteDatabase } from "sqlite3";
 
-export class Database extends Object {
+export class Database {
 
     private readonly dbFile: string;
     private sqliteDb?: SQLiteDatabase;
 
     public constructor(dbFile: string) {
-        super();
         this.dbFile = dbFile;
     }
 

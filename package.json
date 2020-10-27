@@ -53,6 +53,6 @@
         "tslib": "^2.0.3"
     },
     "bin": {
-        "dangerbot": "./lib/main/server.js"
+        "dangerbot": "lib/main/server.js"
     }
 }
