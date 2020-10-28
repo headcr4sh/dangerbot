@@ -42,8 +42,9 @@ export function command(commandName: string): <T>(target: Object, methodName: st
 }
 
 export async function execCommand(commandName: string, message: DiscordMessage, args: string[]): Promise<void> {
-    const command = commands.get(commandName);
-    if (command != null) {
-        await command.exec(message, args);
+    let command = commands.get(commandName);
+    if (!command) {
+        command = commands.get("null");
     }
+    await command.exec(message, args);
 }

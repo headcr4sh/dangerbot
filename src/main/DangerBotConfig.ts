@@ -11,6 +11,9 @@ const discordTokenEnvName = "DANGERBOT_DISCORD_TOKEN";
 const commandPrefixKey = "commandPrefix";
 const defaultCommandPrefix = "!";
 
+const inquiryPrefixKey = "inquiryPrefix";
+const defaultInquiryPrefix = "?";
+
 /**
  * The DangerBot configuration.
  */
@@ -121,5 +124,15 @@ export class DangerBotConfig implements Config {
      */
     public getCommandPrefix(): string {
         return this.get(commandPrefixKey, defaultCommandPrefix);
+    }
+
+    /**
+     * Returns the inquiry prefix string with which every inquiry to be analyzed by the bot's NLP unit must start.
+     * Defaults to "?"
+     *
+     * @return The inquiry prefix.
+     */
+    public getInquiryPrefix(): string {
+        return this.get(inquiryPrefixKey, defaultInquiryPrefix);
     }
 }

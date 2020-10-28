@@ -10,8 +10,8 @@ export async function initialize(): Promise<void> {
     classifier.addDocument("Oh no", "help");
     classifier.addDocument("Shit", "help");
     classifier.addDocument("Damn", "help");
+    classifier.addDocument("Damnit", "help");
     classifier.addDocument("Fuck", "help");
-    classifier.addDocument("Fuck", "something");
 
     classifier.addDocument("I am on an exploration trip", "explore");
     classifier.addDocument("I just travel around", "explore");
