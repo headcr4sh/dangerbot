@@ -26,8 +26,8 @@ export class Command {
         return this.method;
     }
 
-    public async exec(message: DiscordMessage): Promise<void> {
-        await (await this.getMethod()).call(null, message);
+    public async exec(message: DiscordMessage, args: string[]): Promise<void> {
+        await (await this.getMethod()).call(null, message, ...args);
     }
 }
 
@@ -41,9 +41,9 @@ export function command(commandName: string): <T>(target: Object, methodName: st
     };
 }
 
-export async function execCommand(commandName: string, message: DiscordMessage): Promise<void> {
+export async function execCommand(commandName: string, message: DiscordMessage, args: string[]): Promise<void> {
     const command = commands.get(commandName);
     if (command != null) {
-        await command.exec(message);
+        await command.exec(message, args);
     }
 }

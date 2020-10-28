@@ -13,4 +13,9 @@ export class GameModule  {
     public status(message: DiscordMessage): void {
         message.reply("Server is probably well");
     }
+
+    @command("say")
+    public say(message: DiscordMessage, text: string): void {
+        message.reply(text);
+    }
 }

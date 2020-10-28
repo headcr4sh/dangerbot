@@ -8,6 +8,9 @@ import { Config } from "./util/Config.js";
 const discordTokenKey = "discordToken";
 const discordTokenEnvName = "DANGERBOT_DISCORD_TOKEN";
 
+const commandPrefixKey = "commandPrefix";
+const defaultCommandPrefix = "!";
+
 /**
  * The DangerBot configuration.
  */
@@ -109,5 +112,14 @@ export class DangerBotConfig implements Config {
         }
         this.set(discordTokenKey, discordToken);
         return discordToken;
+    }
+
+    /**
+     * Returns the command prefix string with which every command recognized by the bot must start. Defaults to "!"
+     *
+     * @return The command prefix.
+     */
+    public getCommandPrefix(): string {
+        return this.get(commandPrefixKey, defaultCommandPrefix);
     }
 }
