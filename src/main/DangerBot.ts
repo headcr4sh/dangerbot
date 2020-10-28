@@ -2,6 +2,8 @@ import { Client as DiscordClient, Message as DiscordMessage } from "discord.js";
 import { injectable } from "./di/Injectable";
 import { DangerBotConfig } from "./DangerBotConfig";
 
+import { initialize as initializeNlpClassifier } from "./nlp/classifier";
+
 import "./modules/GameModule";
 import { execCommand } from "./Command";
 
@@ -31,6 +33,7 @@ export class DangerBot {
 
     public async run(): Promise<void> {
         console.log("Starting bot");
+        await initializeNlpClassifier();
         await this.discordClient.login(this.config.getDiscordToken());
     }
 }

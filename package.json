@@ -37,6 +37,7 @@
         "@kayahr/jest-matchers": "1.0.0",
         "@types/configstore": "4.0.0",
         "@types/jest": "26.0.15",
+        "@types/natural": "^2.1.0",
         "@types/node": "14.14.5",
         "@types/sqlite3": "^3.1.6",
         "@types/ws": "7.2.8",
@@ -51,6 +52,7 @@
     "dependencies": {
         "configstore": "^5.0.1",
         "discord.js": "^12.4.1",
+        "natural": "^2.1.5",
         "reflect-metadata": "^0.1.13",
         "source-map-support": "^0.5.19",
         "sqlite3": "^5.0.0",
