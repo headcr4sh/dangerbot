@@ -6,11 +6,16 @@ import { initialize as initializeNlpClassifier } from "./nlp/classifier";
 
 import "./modules/GameModule";
 import { execCommand } from "./Command";
+import { WordTokenizer } from 'natural';
 
 @injectable()
 export class DangerBot {
+
     /** Underlying Discord client to receive/send chat messages. */
     private readonly discordClient: DiscordClient;
+
+    /** Tokenizer to use when de-composing incoming messages. */
+    private readonly wordTokenizer = new WordTokenizer();
 
     /**
      * Creates a new DangerBot(tm) instance.
@@ -46,21 +51,12 @@ export class DangerBot {
         }
     }
 
-    private parseArguments(text: string): string[] {
-        const regexp = /[^\s"]+|"([^"]*)"/gi;
-        const args: string[] = [];
-        let match: RegExpExecArray | null;
-        while (match = regexp.exec(text)) {
-            args.push(match[1] ? match[1] : match[0]);
-        };
-        return args;
-    }
-
     private processCommand(message: DiscordMessage, text: string): void {
-        const commandSplit = text.indexOf(" ");
-        const command = commandSplit < 0 ? text : text.substr(0, commandSplit);
-        const args = this.parseArguments(text.substr(command.length + 1));
-        execCommand(command, message, args);
+        const tokens = this.wordTokenizer.tokenize(text);
+        const command = tokens.shift();
+        if (command) {
+            execCommand(command, message, tokens);
+        }
     }
 
     public async run(): Promise<void> {
