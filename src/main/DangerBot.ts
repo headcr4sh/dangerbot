@@ -6,8 +6,7 @@ import { classifier, initialize as initializeNlpClassifier } from "./nlp/classif
 
 import "./modules/GameModule";
 import { execCommand } from "./Command";
-import { WordTokenizer } from 'natural';
-import { exec } from 'child_process';
+import { WordTokenizer } from "natural";
 
 @injectable()
 export class DangerBot {
